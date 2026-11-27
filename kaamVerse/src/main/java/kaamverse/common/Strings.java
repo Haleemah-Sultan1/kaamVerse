@@ -10,6 +10,12 @@ public final class Strings {
     // Application
     public static final String APP_TITLE = "KaamVerse";
     public static final String WELCOME = "Welcome to KaamVerse";
+    public static final String INTRO_TAGLINE = "Honest work. Trusted homes.";
+    public static final String INTRO_ENTER = "Enter  \u2192";
+    public static final String WELCOME_BACK = "Welcome back";
+    public static final String SIGN_IN_HINT = "Sign in to continue to your account.";
+    public static final String OR = "or";
+    public static final String MENU_HEADING = "What would you like to do today?";
 
     // Alerts
     public static final String ERROR_TITLE = "Something went wrong";
