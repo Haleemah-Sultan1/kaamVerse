@@ -211,4 +211,82 @@ public final class StringsB {
     public static final String UC5_BADGE_REASON =
             "Awarded after %d approved reviews (average %.2f, %.0f%% rated 4 or more)";
     public static final String UC5_NOTIFY_BADGE = "Congratulations! You have been awarded the Verified Trust Badge.";
+    
+    
+
+    // UC11 File a confidential complaint (Urdu)
+    public static final String UC11_TITLE = "خفیہ شکایت";
+    public static final String UC11_BACK = "واپس";
+    public static final String UC11_NEXT = "آگے";
+    public static final String UC11_CANCEL = "منسوخ کریں";
+    public static final String UC11_SUBMIT = "شکایت جمع کروائیں";
+    public static final String UC11_FINISH = "مکمل";
+    public static final String UC11_LISTEN = "سنیں";
+    public static final String UC11_STEP_OF = "مرحلہ %d از %d";
+    public static final String UC11_STEP_INTRO = "رازداری";
+    public static final String UC11_STEP_WHO = "آجر اور مسئلے کی قسم";
+    public static final String UC11_STEP_DESCRIBE = "واقعے کی تفصیل";
+    public static final String UC11_STEP_DATE = "تاریخ اور ثبوت";
+    public static final String UC11_STEP_CONFIRM = "شکایت کی جانچ";
+    public static final String UC11_STEP_DONE = "شکایت جمع ہو گئی";
+    public static final String UC11_CONFIDENTIALITY = "آپ کی شکایت مکمل طور پر خفیہ ہے۔ "
+            + "آپ کے آجر کو اس کی اطلاع نہیں دی جائے گی۔ صرف شکایات کا جائزہ لینے والے افسر اسے دیکھ سکیں گے۔";
+    public static final String UC11_PROMPT_WHO =
+            "جس آجر کے بارے میں شکایت کرنی ہے اسے منتخب کریں اور مسئلے کی قسم چنیں۔";
+    public static final String UC11_PROMPT_DESCRIBE =
+            "بتائیں کہ کیا ہوا۔ آپ آڈیو فائل منتخب کر سکتی ہیں یا اپنی بات لکھ سکتی ہیں۔";
+    public static final String UC11_PROMPT_DATE =
+            "واقعے کی تاریخ منتخب کریں۔ آپ چاہیں تو ثبوت کی فائل بھی شامل کر سکتی ہیں۔";
+    public static final String UC11_PROMPT_CONFIRM = "اپنی شکایت دیکھ لیں، پھر جمع کروائیں۔";
+    public static final String UC11_AGREE = "میں سمجھ گئی ہوں اور آگے بڑھنا چاہتی ہوں۔";
+    public static final String UC11_EMPLOYER = "آجر";
+    public static final String UC11_PROBLEM = "مسئلے کی قسم";
+    public static final String UC11_AUDIO = "آڈیو فائل";
+    public static final String UC11_CHOOSE_AUDIO = "آڈیو منتخب کریں";
+    public static final String UC11_WRITTEN = "یا اپنی بات یہاں لکھیں";
+    public static final String UC11_TRANSCRIPT = "تفصیل";
+    public static final String UC11_INCIDENT_DATE = "واقعے کی تاریخ";
+    public static final String UC11_EVIDENCE = "ثبوت (اختیاری)";
+    public static final String UC11_CHOOSE_EVIDENCE = "ثبوت منتخب کریں";
+    public static final String UC11_NO_FILE = "کوئی فائل منتخب نہیں";
+    public static final String UC11_FILTER_AUDIO = "آڈیو فائلیں";
+    public static final String UC11_FILTER_EVIDENCE = "تصویر یا پی ڈی ایف";
+    public static final String UC11_FILTER_ALL = "تمام فائلیں";
+    public static final String UC11_REF_LABEL = "حوالہ نمبر";
+    public static final String UC11_SUCCESS = "آپ کی شکایت جمع ہو گئی ہے۔ آپ کا حوالہ نمبر %s ہے۔";
+    public static final String UC11_NEXT_STEPS = "ایک افسر آپ کی شکایت کا جائزہ لے گا۔ "
+            + "اگر مزید معلومات چاہیے ہوئیں تو آپ کو اطلاع ملے گی۔ یہ نمبر سنبھال کر رکھیں۔";
+    public static final String UC11_TYPE_VERBAL = "زبانی بدسلوکی";
+    public static final String UC11_TYPE_PHYSICAL = "جسمانی ہراسانی";
+    public static final String UC11_TYPE_SEXUAL = "جنسی ہراسانی";
+    public static final String UC11_TYPE_THREATS = "دھمکیاں";
+    public static final String UC11_TYPE_OTHER = "دیگر";
+    public static final String UC11_ERR_NOT_ALLOWED = "یہ سہولت صرف ملازمہ کے لیے ہے۔";
+    public static final String UC11_ERR_NOT_VERIFIED =
+            "آپ کی تصدیق مکمل نہیں ہوئی، اس لیے آپ ابھی شکایت درج نہیں کر سکتیں۔";
+    public static final String UC11_ERR_NO_EMPLOYER =
+            "آپ کا کوئی ایسا آجر نہیں ہے جس کے بارے میں شکایت درج کی جا سکے۔";
+    public static final String UC11_ERR_NOT_AGREED = "آگے بڑھنے کے لیے براہ کرم رضامندی کا نشان لگائیں۔";
+    public static final String UC11_ERR_EMPLOYER = "براہ کرم آجر منتخب کریں۔";
+    public static final String UC11_ERR_EMPLOYER_GONE = "یہ آجر اب فہرست میں نہیں ہے۔ براہ کرم دوبارہ منتخب کریں۔";
+    public static final String UC11_ERR_TYPE = "براہ کرم مسئلے کی قسم منتخب کریں۔";
+    public static final String UC11_ERR_DESCRIBE = "براہ کرم آڈیو فائل منتخب کریں یا اپنی بات لکھیں۔";
+    public static final String UC11_ERR_TOO_LONG = "تحریر %d حروف سے زیادہ نہیں ہو سکتی۔";
+    public static final String UC11_ERR_AUDIO_FILE = "آڈیو فائل نہیں کھل سکی۔ براہ کرم دوسری فائل منتخب کریں۔";
+    public static final String UC11_ERR_DATE = "براہ کرم واقعے کی تاریخ منتخب کریں۔";
+    public static final String UC11_ERR_DATE_FUTURE = "واقعے کی تاریخ آج یا اس سے پہلے کی ہونی چاہیے۔";
+    public static final String UC11_ERR_EVIDENCE_FILE = "ثبوت کی فائل نہیں کھل سکی۔ براہ کرم دوسری فائل منتخب کریں۔";
+    public static final String UC11_ERR_FILE_SAVE = "فائل محفوظ نہیں ہو سکی۔ دوبارہ کوشش کریں۔";
+    public static final String UC11_ERR_INCOMPLETE = "شکایت مکمل نہیں ہے۔ براہ کرم دوبارہ شروع کریں۔";
+    public static final String UC11_ERR_DATABASE = "ڈیٹا بیس سے رابطہ نہیں ہو سکا۔ دوبارہ کوشش کریں۔";
+
+    public static String problemName(ProblemType type) {
+        return switch (type) {
+            case VERBAL_ABUSE -> UC11_TYPE_VERBAL;
+            case PHYSICAL -> UC11_TYPE_PHYSICAL;
+            case SEXUAL -> UC11_TYPE_SEXUAL;
+            case THREATS -> UC11_TYPE_THREATS;
+            case OTHER -> UC11_TYPE_OTHER;
+        };
+    }
 }
