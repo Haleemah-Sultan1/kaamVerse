@@ -17,5 +17,7 @@ public interface HireDao {
     // newest first; service lines are not loaded
     List<Hire> findByWoman(int hiringWomanId);
 
+    // newest first; service lines are not loaded
+    List<Hire> findByMaid(int maidId);
     void updateStatus(int hireId, HireStatus status, LocalDate startDate, LocalDate endDate);
 }

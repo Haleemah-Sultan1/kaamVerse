@@ -24,4 +24,8 @@ public final class DaoFactoryB {
     public static TrustBadgeDao trustBadgeDao() {
         return new JdbcTrustBadgeDao();
     }
+
+    public static ComplaintDao complaintDao() {
+        return new JdbcComplaintDao();
+    }
 }

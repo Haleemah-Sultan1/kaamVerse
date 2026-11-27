@@ -81,7 +81,25 @@ public class JdbcHireDao implements HireDao {
             throw new DatabaseException("Could not load the hires", e);
         }
     }
-
+    
+    @Override
+    public List<Hire> findByMaid(int maidId) {
+        try (Connection connection = TransactionManager.connection();
+             PreparedStatement statement = connection.prepareStatement(
+                     SELECT + "WHERE maid_id = ? ORDER BY request_date DESC, hire_id DESC")) {
+            statement.setInt(1, maidId);
+            try (ResultSet rows = statement.executeQuery()) {
+                List<Hire> hires = new ArrayList<>();
+                while (rows.next()) {
+                    hires.add(map(rows));
+                }
+                return hires;
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Could not load the hires", e);
+        }
+    }
+ 
     @Override
     public void updateStatus(int hireId, HireStatus status, LocalDate startDate, LocalDate endDate) {
         try (Connection connection = TransactionManager.connection();
