@@ -139,5 +139,29 @@ public final class StringsB {
     public static final String UC3_ERR_NOT_ACTIVE = "Only an active hire can be ended.";
     public static final String UC3_ERR_HIRE_GONE = "This hire could not be found. Please refresh.";
 
-
+    // UC4 Share past experience
+    public static final String UC4_HEADING = "Share your past experience";
+    public static final String UC4_LIST_HEADING = "Your ended hires (select one)";
+    public static final String UC4_COL_MAID = "Maid";
+    public static final String UC4_COL_STARTED = "Started";
+    public static final String UC4_COL_ENDED = "Ended";
+    public static final String UC4_COL_REVIEW = "Review";
+    public static final String UC4_REVIEWED = "Done";
+    public static final String UC4_NOT_REVIEWED = "Not yet";
+    public static final String UC4_NO_HIRES = "You have no ended hires. End a hire in My hires first.";
+    public static final String UC4_FORM_HEADING = "Review for %s";
+    public static final String UC4_OVERALL = "Overall";
+    public static final String UC4_PUNCTUALITY = "Punctuality";
+    public static final String UC4_HONESTY = "Honesty";
+    public static final String UC4_CLEANLINESS = "Cleanliness";
+    public static final String UC4_BEHAVIOUR = "Behaviour";
+    public static final String UC4_WOULD_REHIRE = "I would hire her again";
+    public static final String UC4_COMMENT = "Comment (optional)";
+    public static final String UC4_SUBMIT = "Submit review";
+    public static final String UC4_THANKS = "Thank you. Your review was sent and will show once it is approved.";
+    public static final String UC4_ERR_SELECT = "Please select a hire from the list first.";
+    public static final String UC4_ERR_HIRE = "This hire is not available for a review. Please refresh the list.";
+    public static final String UC4_ERR_DUPLICATE = "You have already reviewed this hire.";
+    public static final String UC4_ERR_RATING = "Please give a rating from 1 to 5 stars for: %s.";
+    public static final String UC4_ERR_COMMENT = "The comment can be at most 1000 characters.";
 }
