@@ -20,4 +20,8 @@ public final class DaoFactoryB {
     public static ReviewDao reviewDao() {
         return new JdbcReviewDao();
     }
+
+    public static TrustBadgeDao trustBadgeDao() {
+        return new JdbcTrustBadgeDao();
+    }
 }
