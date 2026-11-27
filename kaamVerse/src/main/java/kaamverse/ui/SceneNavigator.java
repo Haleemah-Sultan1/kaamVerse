@@ -1,8 +1,10 @@
 package kaamverse.ui;
 
+import javafx.animation.FadeTransition;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import kaamverse.bl.controller.LoginController;
 import kaamverse.common.Strings;
 
@@ -12,8 +14,8 @@ import kaamverse.common.Strings;
  */
 public class SceneNavigator {
 
-    private static final double WIDTH = 900;
-    private static final double HEIGHT = 600;
+    private static final double WIDTH = 1240;
+    private static final double HEIGHT = 780;
 
     private final Stage stage;
 
@@ -23,11 +25,28 @@ public class SceneNavigator {
 
     public void show(Parent screen, String title) {
         stage.setTitle(title);
+        // The green artwork background is drawn behind every screen.
+        if (!screen.getStyleClass().contains("app-root")) {
+            screen.getStyleClass().add("app-root");
+        }
+        screen.setOpacity(0);
         if (stage.getScene() == null) {
-            stage.setScene(new Scene(screen, WIDTH, HEIGHT));
+            Scene scene = new Scene(screen, WIDTH, HEIGHT);
+            Theme.apply(scene);
+            stage.setScene(scene);
+            stage.setMinWidth(1000);
+            stage.setMinHeight(680);
         } else {
             stage.getScene().setRoot(screen);
         }
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(320), screen);
+        fadeIn.setToValue(1);
+        fadeIn.play();
+    }
+
+    /** The typewriter welcome screen shown when the app starts. */
+    public void showIntro() {
+        show(new IntroScreen(this), Strings.APP_TITLE);
     }
 
     public void showLogin() {

@@ -13,8 +13,9 @@ public class MainApp extends Application {
     public void start(Stage stage) {
         Thread.currentThread().setUncaughtExceptionHandler((thread, error) -> handle(error));
 
+        Theme.init();
         SceneNavigator navigator = new SceneNavigator(stage);
-        navigator.showLogin();
+        navigator.showIntro();
         stage.show();
     }
 

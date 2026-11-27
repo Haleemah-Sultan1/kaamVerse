@@ -16,10 +16,12 @@ public class ComingSoonScreen extends VBox {
         setPadding(new Insets(24));
 
         Label heading = new Label(title);
-        heading.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");
+        heading.getStyleClass().addAll("screen-title", "serif");
         Button back = new Button(Strings.BACK);
         back.setOnAction(event -> navigator.goHome());
 
-        getChildren().addAll(heading, new Label(Strings.COMING_SOON), back);
+        Label soon = new Label(Strings.COMING_SOON);
+        soon.getStyleClass().add("muted");
+        getChildren().addAll(heading, soon, back);
     }
 }
