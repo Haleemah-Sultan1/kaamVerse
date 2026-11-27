@@ -1,10 +1,5 @@
 package kaamverse.db.dao;
 
-/**
- * GoF Factory for Person B's DAOs. Kept apart from DaoFactory so that two
- * people never edit the same file. GRASP Protected Variations: callers
- * depend on the interfaces only.
- */
 public final class DaoFactoryB {
 
     private DaoFactoryB() {
@@ -12,5 +7,13 @@ public final class DaoFactoryB {
 
     public static WageBandDao wageBandDao() {
         return new JdbcWageBandDao();
+    }
+
+    public static MaidSearchDao maidSearchDao() {
+        return new JdbcMaidSearchDao();
+    }
+
+    public static HireDao hireDao() {
+        return new JdbcHireDao();
     }
 }

@@ -6,7 +6,7 @@ import java.util.Set;
 import kaamverse.common.Permission;
 import kaamverse.common.Strings;
 import kaamverse.common.UserRole;
-
+import kaamverse.common.StringsB;
 /**
  * Person B's menu entries. Replace ComingSoonScreen with your own screen,
  * for example: navigator -> new MyScreen(navigator)
@@ -15,8 +15,11 @@ public final class MenuModuleB {
 
     private static final List<MenuEntry> ENTRIES = List.of(
             // UC3
+            // UC3
             MenuEntry.forRole(UserRole.HIRING_WOMAN, Strings.UC3_HIRE,
-                    navigator -> new ComingSoonScreen(navigator, Strings.UC3_HIRE)),
+                    navigator -> new HireSearchScreen(navigator)),
+            MenuEntry.forRole(UserRole.HIRING_WOMAN, StringsB.UC3_MY_HIRES,
+                    navigator -> new MyHiresScreen(navigator)),
             // UC4
             MenuEntry.forRole(UserRole.HIRING_WOMAN, Strings.UC4_EXPERIENCE,
                     navigator -> new ComingSoonScreen(navigator, Strings.UC4_EXPERIENCE)),
