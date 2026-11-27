@@ -164,4 +164,51 @@ public final class StringsB {
     public static final String UC4_ERR_DUPLICATE = "You have already reviewed this hire.";
     public static final String UC4_ERR_RATING = "Please give a rating from 1 to 5 stars for: %s.";
     public static final String UC4_ERR_COMMENT = "The comment can be at most 1000 characters.";
+    
+    // UC5 Reviews and trust badges
+    public static final String UC5_HEADING = "Reviews and trust badges";
+    public static final String UC5_TAB_REVIEWS = "Reviews to check";
+    public static final String UC5_TAB_BADGES = "Trust badges";
+    public static final String UC5_COL_MAID = "Maid";
+    public static final String UC5_COL_EMPLOYER = "Employer";
+    public static final String UC5_COL_RATING = "Overall";
+    public static final String UC5_COL_COMMENT = "Comment";
+    public static final String UC5_COL_DATE = "Submitted";
+    public static final String UC5_COL_COUNT = "Approved reviews";
+    public static final String UC5_COL_AVERAGE = "Average";
+    public static final String UC5_COL_POSITIVE = "Rated 4 or more";
+    public static final String UC5_COL_ELIGIBLE = "Meets the rule";
+    public static final String UC5_COL_BADGE = "Badge";
+    public static final String UC5_YES = "Yes";
+    public static final String UC5_NO = "No";
+    public static final String UC5_AWARDED = "Awarded";
+    public static final String UC5_NO_REVIEWS = "No reviews are waiting to be checked.";
+    public static final String UC5_NO_MAIDS = "No maid has an approved review yet.";
+    public static final String UC5_NO_COMMENT = "(no comment)";
+    public static final String UC5_DETAILS = "Overall: %d/5\nPunctuality: %d/5\nHonesty: %d/5\n"
+            + "Cleanliness: %d/5\nBehaviour: %d/5\nWould hire again: %s\n\nComment: %s\n\n"
+            + "Employer: %s\nWorking hours: %s\nPeriod: %s to %s";
+    public static final String UC5_APPROVE = "Approve";
+    public static final String UC5_REJECT = "Reject";
+    public static final String UC5_AWARD = "Award badge";
+    public static final String UC5_RULE = "Badge rule: at least 5 approved reviews, an average of 4.0 or more, "
+            + "and at least 80% of the reviews rated 4 or more.";
+    public static final String UC5_CONFIRM_APPROVE = "Approve this review? It will count towards %s's average rating.";
+    public static final String UC5_CONFIRM_REJECT = "Reject this review? It will not count towards %s's rating.";
+    public static final String UC5_CONFIRM_AWARD = "Award the Verified Trust Badge to %s?";
+    public static final String UC5_APPROVED = "The review was approved. %s's average rating is now %.2f.";
+    public static final String UC5_REJECTED = "The review was rejected.";
+    public static final String UC5_AWARDED_OK = "The badge was awarded.";
+    public static final String UC5_ERR_NOT_ALLOWED = "You are not allowed to do this.";
+    public static final String UC5_ERR_SELECT = "Please select a row first.";
+    public static final String UC5_ERR_DECIDED = "This review was already checked. The list has been refreshed.";
+    public static final String UC5_ERR_MAID = "This maid is not available for a badge.";
+    public static final String UC5_ERR_HAS_BADGE = "This maid already has the badge.";
+    public static final String UC5_ERR_NOT_ELIGIBLE = "This maid does not meet the badge rule yet.";
+    public static final String UC5_AUDIT_APPROVED = "Approved review %d for %s (overall rating %d)";
+    public static final String UC5_AUDIT_REJECTED = "Rejected review %d for %s (overall rating %d)";
+    public static final String UC5_AUDIT_AWARDED = "Awarded trust badge to %s";
+    public static final String UC5_BADGE_REASON =
+            "Awarded after %d approved reviews (average %.2f, %.0f%% rated 4 or more)";
+    public static final String UC5_NOTIFY_BADGE = "Congratulations! You have been awarded the Verified Trust Badge.";
 }

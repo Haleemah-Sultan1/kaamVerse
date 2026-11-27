@@ -25,7 +25,7 @@ public final class MenuModuleB {
                     navigator -> new ReviewScreen(navigator)),
             // UC5
             MenuEntry.forPermission(Permission.AWARD_BADGES, Strings.UC5_BADGE,
-                    navigator -> new ComingSoonScreen(navigator, Strings.UC5_BADGE)),
+                    navigator -> new TrustBadgeScreen(navigator)),
             // UC6
             MenuEntry.forPermission(Permission.MANAGE_WAGE_BANDS, Strings.UC6_WAGES,
                     navigator -> new WageBandScreen(navigator)),
