@@ -25,7 +25,7 @@ public final class MenuModuleB {
                     navigator -> new ComingSoonScreen(navigator, Strings.UC5_BADGE)),
             // UC6
             MenuEntry.forPermission(Permission.MANAGE_WAGE_BANDS, Strings.UC6_WAGES,
-                    navigator -> new ComingSoonScreen(navigator, Strings.UC6_WAGES)),
+                    navigator -> new WageBandScreen(navigator)),
             // UC11
             MenuEntry.forRole(UserRole.MAID, Strings.UC11_COMPLAINT,
                     navigator -> new ComingSoonScreen(navigator, Strings.UC11_COMPLAINT)),
