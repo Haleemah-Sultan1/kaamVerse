@@ -28,4 +28,44 @@ public final class DaoFactory {
     public static AuditLogDao auditLogDao() {
         return new JdbcAuditLogDao();
     }
+
+    public static LocalityDao localityDao() {
+        return new JdbcLocalityDao();
+    }
+
+    public static StreetDao streetDao() {
+        return new JdbcStreetDao();
+    }
+
+    public static ServiceDao serviceDao() {
+        return new JdbcServiceDao();
+    }
+
+    public static VerificationRequestDao verificationRequestDao() {
+        return new JdbcVerificationRequestDao();
+    }
+
+    public static FundingRequestDao fundingRequestDao() {
+        return new JdbcFundingRequestDao();
+    }
+
+    public static FundingRecipientDao fundingRecipientDao() {
+        return new JdbcFundingRecipientDao();
+    }
+
+    public static ContributionDao contributionDao() {
+        return new JdbcContributionDao();
+    }
+
+    public static FamilyMemberDao familyMemberDao() {
+        return new JdbcFamilyMemberDao();
+    }
+
+    public static EmergencyContactDao emergencyContactDao() {
+        return new JdbcEmergencyContactDao();
+    }
+
+    public static AvailabilitySlotDao availabilitySlotDao() {
+        return new JdbcAvailabilitySlotDao();
+    }
 }

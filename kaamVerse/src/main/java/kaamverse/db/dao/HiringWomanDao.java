@@ -1,5 +1,6 @@
 package kaamverse.db.dao;
 
+import java.util.List;
 import java.util.Optional;
 import kaamverse.bl.model.HiringWoman;
 
@@ -14,4 +15,10 @@ public interface HiringWomanDao {
     Optional<HiringWoman> findById(int hiringWomanId);
 
     Optional<HiringWoman> findByPhone(String phone);
+
+    /**
+     * UC9: the employers a maid works for now, that is, those with an Active
+     * hire of her. Each employer appears once, ordered by name. Read-only.
+     */
+    List<HiringWoman> findActiveEmployersOfMaid(int maidId);
 }

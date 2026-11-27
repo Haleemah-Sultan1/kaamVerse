@@ -6,11 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import kaamverse.bl.model.HiringWoman;
 import kaamverse.common.DatabaseException;
 import kaamverse.common.DuplicateRecordException;
+import kaamverse.common.HireStatus;
 
 /** JDBC implementation of HiringWomanDao. */
 public class JdbcHiringWomanDao implements HiringWomanDao {
@@ -21,6 +24,10 @@ public class JdbcHiringWomanDao implements HiringWomanDao {
             "INSERT INTO hiring_woman (name, phone, address, pin, is_hiring_suspended) VALUES (?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE hiring_woman SET name = ?, phone = ?, address = ?, pin = ?, "
             + "is_hiring_suspended = ? WHERE hiring_woman_id = ?";
+    private static final String SELECT_ACTIVE_EMPLOYERS = "SELECT DISTINCT w.hiring_woman_id, w.name, w.phone, "
+            + "w.address, w.pin, w.is_hiring_suspended FROM hiring_woman w "
+            + "JOIN hire h ON h.hiring_woman_id = w.hiring_woman_id "
+            + "WHERE h.maid_id = ? AND h.status = ? ORDER BY w.name, w.hiring_woman_id";
 
     @Override
     public int insert(HiringWoman woman) {
@@ -80,6 +87,24 @@ public class JdbcHiringWomanDao implements HiringWomanDao {
             }
         } catch (SQLException e) {
             throw new DatabaseException("Could not load the hiring woman", e);
+        }
+    }
+
+    @Override
+    public List<HiringWoman> findActiveEmployersOfMaid(int maidId) {
+        try (Connection connection = TransactionManager.connection();
+             PreparedStatement statement = connection.prepareStatement(SELECT_ACTIVE_EMPLOYERS)) {
+            statement.setInt(1, maidId);
+            statement.setString(2, HireStatus.Active.name());
+            try (ResultSet rows = statement.executeQuery()) {
+                List<HiringWoman> employers = new ArrayList<>();
+                while (rows.next()) {
+                    employers.add(map(rows));
+                }
+                return employers;
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Could not load the maid's current employers", e);
         }
     }
 

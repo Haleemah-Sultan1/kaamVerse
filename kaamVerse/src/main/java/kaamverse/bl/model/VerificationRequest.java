@@ -77,4 +77,12 @@ public class VerificationRequest {
         verifiedByOfficerId = officerId;
         verifiedDateTime = LocalDateTime.now();
     }
+
+    /** GRASP Information Expert: the request records its own rejection (reason, officer, time). */
+    public void markRejected(int officerId, String reason) {
+        status = VerificationStatus.Rejected;
+        rejectionReason = reason;
+        verifiedByOfficerId = officerId;
+        verifiedDateTime = LocalDateTime.now();
+    }
 }

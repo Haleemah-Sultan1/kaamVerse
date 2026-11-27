@@ -1,5 +1,7 @@
 package kaamverse.bl.model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -127,20 +129,44 @@ public class FundingRequest {
         }
     }
 
-    /** Records a contribution and updates the amount received and status. */
+    /** What is still needed, rounded to 2 decimals and never below zero. */
+    public double getRemainingAmount() {
+        return remaining().doubleValue();
+    }
+
+    /**
+     * Records a contribution and updates the amount received and status
+     * (PartiallyFunded, or Funded when nothing remains). GRASP Information
+     * Expert: the request knows how much it still needs. The acknowledgement
+     * number is set by the caller.
+     *
+     * @throws IllegalArgumentException if the amount is not more than 0 or is more than remains
+     */
     public Contribution addContribution(HiringWoman contributor, double amount, String note) {
-        if (amount <= 0) {
+        BigDecimal value = BigDecimal.valueOf(amount).setScale(2, RoundingMode.HALF_UP);
+        if (value.signum() <= 0) {
             throw new IllegalArgumentException("Amount must be greater than zero");
+        }
+        if (value.compareTo(remaining()) > 0) {
+            throw new IllegalArgumentException("Amount is more than the remaining amount");
         }
         Contribution contribution = new Contribution();
         contribution.setRequestId(requestId);
         contribution.setHiringWomanId(contributor.getHiringWomanId());
-        contribution.setAmount(amount);
+        contribution.setAmount(value.doubleValue());
         contribution.setNote(note);
         contribution.setContributionDate(LocalDate.now());
         contributions.add(contribution);
-        amountReceived += amount;
-        status = amountReceived >= amountNeeded ? FundingStatus.Funded : FundingStatus.PartiallyFunded;
+        BigDecimal received = BigDecimal.valueOf(amountReceived).add(value).setScale(2, RoundingMode.HALF_UP);
+        amountReceived = received.doubleValue();
+        status = received.compareTo(BigDecimal.valueOf(amountNeeded)) >= 0
+                ? FundingStatus.Funded : FundingStatus.PartiallyFunded;
         return contribution;
+    }
+
+    private BigDecimal remaining() {
+        BigDecimal left = BigDecimal.valueOf(amountNeeded).subtract(BigDecimal.valueOf(amountReceived))
+                .setScale(2, RoundingMode.HALF_UP);
+        return left.signum() < 0 ? BigDecimal.ZERO.setScale(2) : left;
     }
 }

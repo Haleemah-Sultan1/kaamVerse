@@ -7,9 +7,11 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import kaamverse.bl.model.Maid;
+import kaamverse.bl.model.MaidService;
 import kaamverse.common.DatabaseException;
 import kaamverse.common.DuplicateRecordException;
 import kaamverse.common.MaidStatus;
@@ -103,6 +105,59 @@ public class JdbcMaidDao implements MaidDao {
             }
         } catch (SQLException e) {
             throw new DatabaseException("Could not load the maid", e);
+        }
+    }
+
+    @Override
+    public void saveServices(int maidId, List<MaidService> services) {
+        try (Connection connection = TransactionManager.connection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "INSERT INTO maid_service (maid_id, service_id, years) VALUES (?, ?, ?)")) {
+            for (MaidService service : services) {
+                statement.setInt(1, maidId);
+                statement.setInt(2, service.getServiceId());
+                statement.setInt(3, service.getYears());
+                statement.addBatch();
+            }
+            statement.executeBatch();
+        } catch (SQLException e) {
+            throw new DatabaseException("Could not save the maid's services", e);
+        }
+    }
+
+    @Override
+    public List<Maid> search(String nameOrCnic) {
+        String escaped = nameOrCnic.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_");
+        String pattern = "%" + escaped + "%";
+        try (Connection connection = TransactionManager.connection();
+             PreparedStatement statement = connection.prepareStatement(SELECT
+                     + "WHERE name LIKE ? OR cnic LIKE ? OR REPLACE(cnic, '-', '') LIKE ? ORDER BY name LIMIT 50")) {
+            statement.setString(1, pattern);
+            statement.setString(2, pattern);
+            statement.setString(3, pattern);
+            try (ResultSet rows = statement.executeQuery()) {
+                List<Maid> result = new java.util.ArrayList<>();
+                while (rows.next()) {
+                    result.add(map(rows));
+                }
+                return result;
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Could not search for maids", e);
+        }
+    }
+
+    @Override
+    public boolean hasTrustBadge(int maidId) {
+        try (Connection connection = TransactionManager.connection();
+             PreparedStatement statement =
+                     connection.prepareStatement("SELECT 1 FROM trust_badge WHERE maid_id = ?")) {
+            statement.setInt(1, maidId);
+            try (ResultSet rows = statement.executeQuery()) {
+                return rows.next();
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Could not check the maid's trust badge", e);
         }
     }
 

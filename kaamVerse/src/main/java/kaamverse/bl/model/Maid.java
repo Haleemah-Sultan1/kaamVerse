@@ -1,7 +1,9 @@
 package kaamverse.bl.model;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import kaamverse.common.FundingStatus;
@@ -9,6 +11,7 @@ import kaamverse.common.MaidStatus;
 import kaamverse.common.ReviewStatus;
 import kaamverse.common.TimeSlot;
 import kaamverse.common.UserRole;
+import kaamverse.common.VerificationStatus;
 import kaamverse.common.WeekDay;
 
 /** A domestic worker. GRASP Creator and Information Expert for her own records. */
@@ -26,10 +29,12 @@ public class Maid implements User {
     private double averageRating;
     private int streetId;
     private LocalDate registeredDate;
+    private boolean hasBadge;
     private List<MaidService> services = new ArrayList<>();
     private List<AvailabilitySlot> availability = new ArrayList<>();
     private List<FamilyMember> familyMembers = new ArrayList<>();
     private List<EmergencyContact> emergencyContacts = new ArrayList<>();
+    private List<HiringWoman> currentEmployers = new ArrayList<>();
 
     public int getMaidId() {
         return maidId;
@@ -159,6 +164,33 @@ public class Maid implements User {
         this.emergencyContacts = emergencyContacts;
     }
 
+    /**
+     * UC9: the employers she works for now (those with an Active hire of her).
+     * GRASP Information Expert: the maid answers who her employers are. The
+     * list is read-only; it is filled by the funding service from the database.
+     */
+    public List<HiringWoman> getCurrentEmployers() {
+        return Collections.unmodifiableList(currentEmployers);
+    }
+
+    public void setCurrentEmployers(List<HiringWoman> employers) {
+        this.currentEmployers = new ArrayList<>(employers);
+    }
+
+    /** UC10: true if she holds a Verified Trust Badge. Filled by the service from the database. */
+    public boolean hasBadge() {
+        return hasBadge;
+    }
+
+    public void setHasBadge(boolean hasBadge) {
+        this.hasBadge = hasBadge;
+    }
+
+    /** UC10: GRASP Information Expert: how long she has been on KaamVerse (zero if unknown). */
+    public Period getLengthOfService() {
+        return registeredDate == null ? Period.ZERO : Period.between(registeredDate, LocalDate.now());
+    }
+
     @Override
     public int getId() {
         return maidId;
@@ -167,6 +199,37 @@ public class Maid implements User {
     @Override
     public UserRole getUserRole() {
         return UserRole.MAID;
+    }
+
+    /** UC1: sets one registration detail. The value must already be validated. */
+    public void setField(RegistrationField field, String value) {
+        switch (field) {
+            case NAME -> name = value;
+            case FATHER_NAME -> fatherName = value;
+            case CNIC -> cnic = value;
+            case PHONE -> phone = value;
+            case ADDRESS -> address = value;
+            case PIN_HASH -> pin = value;
+        }
+    }
+
+    /** UC1: sets where she lives and the services she offers. */
+    public void setLocationAndServices(int chosenStreetId, List<MaidService> chosenServices) {
+        streetId = chosenStreetId;
+        services = new ArrayList<>(chosenServices);
+    }
+
+    /**
+     * GRASP Creator: the Maid creates her own verification request, which puts
+     * her in PendingVerification. Call after she has been given an ID.
+     */
+    public VerificationRequest createVerificationRequest() {
+        VerificationRequest request = new VerificationRequest();
+        request.setMaidId(maidId);
+        request.setStatus(VerificationStatus.Pending);
+        request.setSubmittedDate(LocalDate.now());
+        status = MaidStatus.PendingVerification;
+        return request;
     }
 
     /** GRASP Creator: replaces the weekly schedule with the selected slots. */
@@ -181,6 +244,21 @@ public class Maid implements User {
                     added.setSlotId(old.getSlotId());
                     added.setBooked(old.isBooked());
                 }
+            }
+        }
+    }
+
+    /**
+     * UC7: GRASP Creator: replaces her schedule with the chosen slots. Booked
+     * slots are always kept (with isBooked), whatever was chosen.
+     */
+    public void replaceAvailability(java.util.Collection<SlotChoice> chosen) {
+        availability.removeIf(slot -> !slot.isBooked());
+        for (SlotChoice choice : chosen) {
+            boolean kept = availability.stream().anyMatch(
+                    slot -> slot.getDay() == choice.day() && slot.getTimeSlot() == choice.timeSlot());
+            if (!kept) {
+                addSlot(choice.day(), choice.timeSlot());
             }
         }
     }
