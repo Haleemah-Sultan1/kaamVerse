@@ -16,4 +16,8 @@ public final class DaoFactoryB {
     public static HireDao hireDao() {
         return new JdbcHireDao();
     }
+
+    public static ReviewDao reviewDao() {
+        return new JdbcReviewDao();
+    }
 }

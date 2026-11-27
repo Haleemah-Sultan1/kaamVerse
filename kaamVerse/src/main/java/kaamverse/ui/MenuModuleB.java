@@ -22,7 +22,7 @@ public final class MenuModuleB {
                     navigator -> new MyHiresScreen(navigator)),
             // UC4
             MenuEntry.forRole(UserRole.HIRING_WOMAN, Strings.UC4_EXPERIENCE,
-                    navigator -> new ComingSoonScreen(navigator, Strings.UC4_EXPERIENCE)),
+                    navigator -> new ReviewScreen(navigator)),
             // UC5
             MenuEntry.forPermission(Permission.AWARD_BADGES, Strings.UC5_BADGE,
                     navigator -> new ComingSoonScreen(navigator, Strings.UC5_BADGE)),
