@@ -5,26 +5,39 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 import kaamverse.bl.model.Complaint;
 import kaamverse.bl.model.HiringWoman;
 import kaamverse.bl.model.Maid;
+import kaamverse.bl.model.Officer;
+import kaamverse.bl.model.ReferralReport;
 import kaamverse.bl.service.AudioPromptService;
+import kaamverse.bl.service.ComplaintReviewService;
+import kaamverse.bl.service.ComplaintReviewService.ComplaintCase;
+import kaamverse.bl.service.ComplaintReviewService.ComplaintRow;
 import kaamverse.bl.service.ComplaintService;
 import kaamverse.bl.service.ComplaintService.EmployerHire;
 import kaamverse.bl.service.LoggingAudioPromptService;
 import kaamverse.bl.service.Session;
 import kaamverse.bl.service.SpeechToText;
 import kaamverse.bl.service.StubSpeechToText;
+import kaamverse.common.ComplaintOutcome;
+import kaamverse.common.DuplicateRecordException;
 import kaamverse.common.MaidStatus;
+import kaamverse.common.Permission;
 import kaamverse.common.ProblemType;
 import kaamverse.common.StringsB;
 
 public class ComplaintController {
 
     public static final int MAX_TRANSCRIPT = 5000;
+    public static final int MAX_NOTE = 2000;
+    public static final int MAX_MESSAGE = 1000;
+    public static final int MAX_REASON = 1000;
 
     private final ComplaintService service = new ComplaintService();
+    private final ComplaintReviewService reviewService = new ComplaintReviewService();
     private final AudioPromptService audio = new LoggingAudioPromptService();
     private final SpeechToText speech = new StubSpeechToText();
 
@@ -186,6 +199,101 @@ public class ComplaintController {
             throw new IllegalStateException("The complaint has not been submitted");
         }
         return saved.getReferenceNo();
+    }
+
+    // UC12 step 1: open complaints, urgent first (or all of them)
+    public List<ComplaintRow> selectComplaints(boolean includeFinished) {
+        requireOfficer(Permission.REVIEW_COMPLAINTS);
+        return reviewService.list(includeFinished);
+    }
+
+    // UC12 step 2: transcript, audio, evidence, incident details, notes and referral
+    public ComplaintCase openComplaint(int complaintId) {
+        requireOfficer(Permission.REVIEW_COMPLAINTS);
+        return guard(() -> reviewService.load(complaintId));
+    }
+
+    public void setStatusUnderReview(int complaintId, String investigationNote) {
+        Officer officer = requireOfficer(Permission.REVIEW_COMPLAINTS);
+        String note = investigationNote == null ? "" : investigationNote.trim();
+        if (note.isEmpty()) {
+            throw new ValidationException(StringsB.UC12_ERR_NOTE_EMPTY);
+        }
+        if (note.length() > MAX_NOTE) {
+            throw new ValidationException(StringsB.UC12_ERR_NOTE_LONG.formatted(MAX_NOTE));
+        }
+        guard(() -> {
+            reviewService.startReview(officer, complaintId, note);
+            return null;
+        });
+    }
+
+    public void requestClarification(int complaintId, String message) {
+        Officer officer = requireOfficer(Permission.REVIEW_COMPLAINTS);
+        String text = message == null ? "" : message.trim();
+        if (text.isEmpty()) {
+            throw new ValidationException(StringsB.UC12_ERR_MESSAGE_EMPTY);
+        }
+        if (text.length() > MAX_MESSAGE) {
+            throw new ValidationException(StringsB.UC12_ERR_MESSAGE_LONG.formatted(MAX_MESSAGE));
+        }
+        guard(() -> {
+            reviewService.requestClarification(officer, complaintId, text);
+            return null;
+        });
+    }
+
+    // closing outcomes close the complaint and return no authorities; escalation returns the list to choose from
+    public List<String> decideOutcome(int complaintId, ComplaintOutcome outcome) {
+        Officer officer = requireOfficer(Permission.ESCALATE_COMPLAINTS);
+        if (outcome == null) {
+            throw new ValidationException(StringsB.UC12_ERR_OUTCOME);
+        }
+        return guard(() -> {
+            if (outcome.isEscalation()) {
+                reviewService.checkCanDecide(complaintId);
+                return reviewService.authorities();
+            }
+            reviewService.close(officer, complaintId, outcome);
+            return List.of();
+        });
+    }
+
+    public ReferralReport escalateComplaint(int complaintId, String authority, String referralReason) {
+        Officer officer = requireOfficer(Permission.ESCALATE_COMPLAINTS);
+        if (authority == null || authority.isBlank()) {
+            throw new ValidationException(StringsB.UC12_ERR_AUTHORITY);
+        }
+        if (!reviewService.authorities().contains(authority)) {
+            throw new ValidationException(StringsB.UC12_ERR_AUTHORITY_UNKNOWN);
+        }
+        String reason = referralReason == null ? "" : referralReason.trim();
+        if (reason.isEmpty()) {
+            throw new ValidationException(StringsB.UC12_ERR_REASON_EMPTY);
+        }
+        if (reason.length() > MAX_REASON) {
+            throw new ValidationException(StringsB.UC12_ERR_REASON_LONG.formatted(MAX_REASON));
+        }
+        return guard(() -> reviewService.escalate(officer, complaintId, authority, reason));
+    }
+
+    // turns the service's ready-to-show messages into ValidationException
+    private <T> T guard(Supplier<T> action) {
+        try {
+            return action.get();
+        } catch (IllegalStateException e) {
+            throw new ValidationException(e.getMessage());
+        } catch (DuplicateRecordException e) {
+            throw new ValidationException(StringsB.UC12_ERR_CHANGED);
+        }
+    }
+
+    private static Officer requireOfficer(Permission permission) {
+        if (Session.isLoggedIn() && Session.getUser() instanceof Officer officer
+                && officer.getPermissions().contains(permission)) {
+            return officer;
+        }
+        throw new ValidationException(StringsB.UC12_ERR_NOT_ALLOWED);
     }
 
     private void clearDraft() {

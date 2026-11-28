@@ -34,8 +34,7 @@ public final class MenuModuleB {
                     navigator -> new FileComplaintScreen(navigator)),
             		//UC12
             MenuEntry.forPermission(Permission.REVIEW_COMPLAINTS, Strings.UC12_REVIEW_COMPLAINTS,
-                    navigator -> new ComingSoonScreen(navigator, Strings.UC12_REVIEW_COMPLAINTS)));
-
+                    navigator -> new ReviewComplaintsScreen(navigator)));
     private MenuModuleB() {
     }
 
