@@ -28,4 +28,12 @@ public final class DaoFactoryB {
     public static ComplaintDao complaintDao() {
         return new JdbcComplaintDao();
     }
+
+    public static InvestigationNoteDao investigationNoteDao() {
+        return new JdbcInvestigationNoteDao();
+    }
+
+    public static ReferralReportDao referralReportDao() {
+        return new JdbcReferralReportDao();
+    }
 }

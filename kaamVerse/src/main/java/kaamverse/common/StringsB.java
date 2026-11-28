@@ -289,4 +289,81 @@ public final class StringsB {
             case OTHER -> UC11_TYPE_OTHER;
         };
     }
+    
+    
+
+    // UC12 Review and escalate a harassment complaint (officer, English)
+    public static final String UC12_HEADING = "Review harassment complaints";
+    public static final String UC12_SHOW_ALL = "Include escalated and closed complaints";
+    public static final String UC12_COL_REF = "Reference";
+    public static final String UC12_COL_MAID = "Maid";
+    public static final String UC12_COL_EMPLOYER = "Employer";
+    public static final String UC12_COL_TYPE = "Problem";
+    public static final String UC12_COL_URGENCY = "Urgency";
+    public static final String UC12_COL_STATUS = "Status";
+    public static final String UC12_COL_FILED = "Filed";
+    public static final String UC12_NO_COMPLAINTS = "There are no complaints to review.";
+    public static final String UC12_OPEN_AUDIO = "Open audio";
+    public static final String UC12_OPEN_EVIDENCE = "Open evidence";
+    public static final String UC12_NOTE_LABEL = "Investigation note";
+    public static final String UC12_START_REVIEW = "Save note and set Under Review";
+    public static final String UC12_CLARIFY_LABEL = "Message to the maid";
+    public static final String UC12_REQUEST_CLARIFICATION = "Request clarification";
+    public static final String UC12_OUTCOME_LABEL = "Outcome";
+    public static final String UC12_DECIDE = "Decide outcome";
+    public static final String UC12_ESCALATION = "Escalation";
+    public static final String UC12_AUTHORITY = "Authority";
+    public static final String UC12_REASON = "Referral reason";
+    public static final String UC12_ESCALATE = "Escalate complaint";
+    public static final String UC12_F_REFERENCE = "Reference";
+    public static final String UC12_F_STATUS = "Status";
+    public static final String UC12_F_URGENCY = "Urgency";
+    public static final String UC12_F_TYPE = "Problem type";
+    public static final String UC12_F_MAID = "Maid";
+    public static final String UC12_F_EMPLOYER = "Employer";
+    public static final String UC12_F_INCIDENT = "Incident date";
+    public static final String UC12_F_FILED = "Filed on";
+    public static final String UC12_F_AUDIO = "Audio";
+    public static final String UC12_F_EVIDENCE = "Evidence";
+    public static final String UC12_F_TRANSCRIPT = "Transcript";
+    public static final String UC12_F_CLARIFICATION = "Clarification asked";
+    public static final String UC12_F_OUTCOME = "Outcome";
+    public static final String UC12_F_REFERRAL = "Referral";
+    public static final String UC12_F_NOTES = "Investigation notes";
+    public static final String UC12_NONE = "-";
+    public static final String UC12_CONFIRM_CLOSE = "Close complaint %s as \"%s\"? This cannot be undone.";
+    public static final String UC12_CONFIRM_ESCALATE = "Escalate this complaint to %s? This cannot be undone.";
+    public static final String UC12_REVIEW_SAVED = "The note was saved and the complaint is Under Review.";
+    public static final String UC12_CLARIFICATION_SENT = "The clarification request was sent to the maid.";
+    public static final String UC12_CLOSED = "The complaint was closed.";
+    public static final String UC12_CHOOSE_AUTHORITY = "Choose an authority and give the referral reason.";
+    public static final String UC12_ESCALATED = "The complaint was escalated to %s (referral no. %d).";
+    public static final String UC12_ERR_NOT_ALLOWED = "You are not allowed to review complaints.";
+    public static final String UC12_ERR_SELECT = "Please select a complaint first.";
+    public static final String UC12_ERR_NOT_FOUND = "This complaint no longer exists.";
+    public static final String UC12_ERR_CHANGED = "This complaint was changed by someone else. The list was refreshed.";
+    public static final String UC12_ERR_NOT_UNDER_REVIEW = "Save an investigation note first to set the complaint Under Review.";
+    public static final String UC12_ERR_NOT_OPEN = "This complaint is already escalated or closed.";
+    public static final String UC12_ERR_NOTE_EMPTY = "Please write an investigation note.";
+    public static final String UC12_ERR_NOTE_LONG = "The note must be at most %d characters.";
+    public static final String UC12_ERR_MESSAGE_EMPTY = "Please write a message for the maid.";
+    public static final String UC12_ERR_MESSAGE_LONG = "The message must be at most %d characters.";
+    public static final String UC12_ERR_OUTCOME = "Please choose an outcome.";
+    public static final String UC12_ERR_AUTHORITY = "Please choose an authority.";
+    public static final String UC12_ERR_AUTHORITY_UNKNOWN = "This authority is not on the list.";
+    public static final String UC12_ERR_REASON_EMPTY = "Please give the referral reason.";
+    public static final String UC12_ERR_REASON_LONG = "The reason must be at most %d characters.";
+    public static final String UC12_ERR_FILE_MISSING = "The file was not found: %s";
+    public static final String UC12_ERR_FILE_OPEN = "The file could not be opened: %s";
+    public static final String UC12_OUTCOME_ESCALATED = "Escalated to %s";
+    public static final String UC12_AUDIT_REVIEW = "Set complaint %s under review";
+    public static final String UC12_AUDIT_NOTE = "Added an investigation note to complaint %s";
+    public static final String UC12_AUDIT_CLARIFY = "Requested clarification on complaint %s";
+    public static final String UC12_AUDIT_CLOSED = "Closed complaint %s as %s";
+    public static final String UC12_AUDIT_ESCALATED = "Escalated complaint %s to %s";
+    public static final String UC12_NOTIFY_REVIEW = "آپ کی شکایت %s کا جائزہ شروع ہو گیا ہے۔";
+    public static final String UC12_NOTIFY_CLARIFY = "آپ کی شکایت %s کے بارے میں افسر کو مزید معلومات چاہیے: %s";
+    public static final String UC12_NOTIFY_CLOSED = "آپ کی شکایت %s بند کر دی گئی ہے۔ نتیجہ: %s";
+    public static final String UC12_NOTIFY_ESCALATED = "آپ کی شکایت %s متعلقہ ادارے (%s) کو بھیج دی گئی ہے۔";
+    
 }
